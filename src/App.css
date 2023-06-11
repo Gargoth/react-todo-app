@@ -1,2 +1,89 @@
-#root {
+:root {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+main {
+  margin: 5em 0;
+  min-width: 60vw;
+  max-width: 80vw;
+  min-height: 40vh;
+  border: solid 3px;
+  border-radius: 1em;
+  background-color: white;
+  filter: drop-shadow(10px 10px 0px black);
+  padding: 1em;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 800;
+  font-size: 2.5em;
+}
+
+#todo-input {
+  display: flex;
+  margin: 1em 0.5em;
+  border: solid 2px;
+  border-radius: 5px;
+  outline: none;
+}
+
+#todo-input-text {
+  padding: 0.25em 0.5em;
+  height: 2em;
+  flex-grow: 1;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  font-weight: 600;
+  font-size: 1em;
+  letter-spacing: 1.5px;
+  outline: none;
+}
+
+#todo-input:focus-within {
+  outline: solid 1px;
+}
+
+#todo-input-button {
+  width: 3em;
+  background-color: #fa2400;
+  border: none;
+  font-weight: 800;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+#todo-input-button:hover {
+  filter: brightness(0.975);
+}
+
+#filter-container {
+  display: flex;
+  margin: 1em 0.5em;
+  border: solid 2px;
+  outline: none;
+}
+
+.filter-btn {
+  background-color: white;
+  border: solid 1px;
+  border-color: black;
+  height: 3em;
+  padding: 0;
+  font-weight: 600;
+  font-size: 1em;
+  letter-spacing: 2px;
+  flex-grow: 1;
+}
+
+.filter-btn:not(.active-filter):hover {
+  filter: brightness(0.975);
+}
+
+.active-filter {
+  background-color: black;
+  color: white;
 }
