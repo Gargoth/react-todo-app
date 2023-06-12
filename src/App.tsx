@@ -8,21 +8,32 @@ function App(props: AppProps) {
     const [currentFilter, setCurrentFilter] = useState<Number>(0);
     const [tasks, setTasks] = useState<TodoProps[]>(props.tasks);
     const inputRef = useRef<HTMLInputElement>(null);
+    let filteredTasks: TodoProps[];
 
-    const getTasks = (tasks: TodoProps[], filter: Number) => {
-        // .filter((task) =>
-        //     filter === 1 ? !task.completed : filter === 2 ? task.completed : true
-        // )
-        const taskList: JSX.Element[] = tasks.map((task) => (
+    const getTasks = (tasks: TodoProps[]): JSX.Element[] => {
+        filteredTasks = tasks.filter((task) =>
+            currentFilter === 1 ? !task.completed : currentFilter === 2 ? task.completed : true
+        );
+        const taskList: JSX.Element[] = filteredTasks.map((task) => (
             <Todo
                 id={task.id}
                 name={task.name}
                 completed={task.completed}
+                toggleCompleteTask={toggleCompleted}
                 deleteTask={deleteTask}
             />
         ));
 
         return taskList;
+    };
+
+    const toggleCompleted = (id: String) => {
+        setTasks(
+            tasks.map((task) => {
+                if (task.id === id) task.completed = !task.completed;
+                return task;
+            })
+        );
     };
 
     const deleteTask = (id: String) => {
@@ -38,6 +49,7 @@ function App(props: AppProps) {
                     id: `todo-${nanoid()}`,
                     name: newTaskName,
                     completed: false,
+                    toggleCompleteTask: toggleCompleted,
                     deleteTask: deleteTask,
                 },
             ]);
@@ -83,7 +95,7 @@ function App(props: AppProps) {
                 </button>
             </div>
 
-            {getTasks(tasks, currentFilter)}
+            {getTasks(tasks)}
         </main>
     );
 }

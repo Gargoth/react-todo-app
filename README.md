@@ -5,6 +5,7 @@ Small React project to learn the basics of the React framework. This project tau
 
 - Adding new todo items
 - Deleting todo items
+- Filtering todo items
 - ~~Editing todo items~~
 - ~~Persistent todo items~~
 
