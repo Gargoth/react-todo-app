@@ -17,7 +17,6 @@ function App() {
     // Update cache everytime tasks state changes
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(tasks));
-        console.log(localStorage.getItem("tasks"));
     }, [tasks]);
 
     function getTasks(tasks: TodoProps[], currentFilter: Number): JSX.Element[] {
