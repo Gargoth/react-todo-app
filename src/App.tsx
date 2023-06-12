@@ -1,13 +1,24 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Todo from "./components/Todo";
-import { AppProps, TodoProps } from "./interfaces";
+import { TodoProps } from "./interfaces";
 import { nanoid } from "nanoid";
 
-function App(props: AppProps) {
+function App() {
+    // Load tasks from cache
+    let initialTasks: TodoProps[] = [];
+    if (localStorage.getItem("tasks") !== null)
+        initialTasks = JSON.parse(localStorage.getItem("tasks")!);
+
     const [currentFilter, setCurrentFilter] = useState<Number>(0);
-    const [tasks, setTasks] = useState<TodoProps[]>(props.tasks);
+    const [tasks, setTasks] = useState<TodoProps[]>(initialTasks);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // Update cache everytime tasks state changes
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        console.log(localStorage.getItem("tasks"));
+    }, [tasks]);
 
     function getTasks(tasks: TodoProps[], currentFilter: Number): JSX.Element[] {
         /**
