@@ -14,7 +14,7 @@ function App() {
     const [tasks, setTasks] = useState<TodoProps[]>(initialTasks);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    // Update cache everytime tasks state changes
+    // Effects on tasks state change
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }, [tasks]);
