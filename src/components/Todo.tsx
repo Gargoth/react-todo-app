@@ -20,7 +20,7 @@ export default function Todo(props: TodoProps) {
                 <button className="todo-btn">
                     <FontAwesomeIcon icon={faPenToSquare} style={{ color: "#000000" }} />
                 </button>
-                <button className="todo-btn">
+                <button className="todo-btn" onClick={() => props.deleteTask(props.id)}>
                     <FontAwesomeIcon icon={faTrashCan} style={{ color: "#E30C0B" }} />
                 </button>
             </div>

@@ -6,4 +6,5 @@ export interface TodoProps {
     id: String;
     name: String;
     completed: boolean;
+    deleteTask: Function;
 }

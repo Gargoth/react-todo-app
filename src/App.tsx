@@ -10,19 +10,23 @@ function App(props: AppProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const getTasks = (tasks: TodoProps[], filter: Number) => {
-        const taskList: JSX.Element[] = tasks
-            .filter((task) =>
-                filter === 1 ? !task.completed : filter === 2 ? task.completed : true
-            )
-            .map((task) => (
-                <Todo
-                    id={task.id}
-                    name={task.name}
-                    completed={task.completed}
-                />
-            ));
+        // .filter((task) =>
+        //     filter === 1 ? !task.completed : filter === 2 ? task.completed : true
+        // )
+        const taskList: JSX.Element[] = tasks.map((task) => (
+            <Todo
+                id={task.id}
+                name={task.name}
+                completed={task.completed}
+                deleteTask={deleteTask}
+            />
+        ));
 
         return taskList;
+    };
+
+    const deleteTask = (id: String) => {
+        setTasks(tasks.filter((task) => id !== task.id));
     };
 
     const addTask = () => {
@@ -34,11 +38,10 @@ function App(props: AppProps) {
                     id: `todo-${nanoid()}`,
                     name: newTaskName,
                     completed: false,
+                    deleteTask: deleteTask,
                 },
             ]);
         }
-
-        console.log(tasks);
     };
 
     return (
