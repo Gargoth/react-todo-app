@@ -6,8 +6,8 @@ Small React project to learn the basics of the React framework. This project tau
 - Adding new todo items
 - Deleting todo items
 - Filtering todo items
+- Persistent todo items
 - ~~Editing todo items~~
-- ~~Persistent todo items~~
 
 ## Tools
 The project was set up using the Vite toolchain with TypeScript and the React framework using the command `yarn create vite`. 

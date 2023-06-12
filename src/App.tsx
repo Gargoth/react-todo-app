@@ -8,12 +8,30 @@ function App(props: AppProps) {
     const [currentFilter, setCurrentFilter] = useState<Number>(0);
     const [tasks, setTasks] = useState<TodoProps[]>(props.tasks);
     const inputRef = useRef<HTMLInputElement>(null);
-    let filteredTasks: TodoProps[];
 
-    const getTasks = (tasks: TodoProps[]): JSX.Element[] => {
-        filteredTasks = tasks.filter((task) =>
-            currentFilter === 1 ? !task.completed : currentFilter === 2 ? task.completed : true
+    function getTasks(tasks: TodoProps[], currentFilter: Number): JSX.Element[] {
+        /**
+         * Returns an array of Todo Components from TodoProps[] parameter
+         *
+         * @param tasks - array of TodoProps to be converted to Todo components
+         * @param currentFilter - number used to determine which tasks to filter
+         * @returns array of Todo components based on input tasks and currentFilter
+         */
+
+        /*
+         * Filter tasks with currentFilter as basis
+         */
+        const filteredTasks: TodoProps[] = tasks.filter((task) =>
+            currentFilter === 1
+                ? !task.completed
+                : currentFilter === 2
+                    ? task.completed
+                    : true
         );
+
+        /*
+         * Map filteredTasks into new Todo components
+         */
         const taskList: JSX.Element[] = filteredTasks.map((task) => (
             <Todo
                 id={task.id}
@@ -25,23 +43,37 @@ function App(props: AppProps) {
         ));
 
         return taskList;
-    };
+    }
 
-    const toggleCompleted = (id: String) => {
+    function toggleCompleted(id: String) {
+        /**
+         * Toggles internal state of a task with input id
+         *
+         * @param id - id of the task to toggle
+         */
         setTasks(
             tasks.map((task) => {
                 if (task.id === id) task.completed = !task.completed;
                 return task;
             })
         );
-    };
+    }
 
-    const deleteTask = (id: String) => {
+    function deleteTask(id: String) {
+        /**
+         * Deletes task with input id
+         *
+         * @param id - id of task to delete
+         */
         setTasks(tasks.filter((task) => id !== task.id));
-    };
+    }
 
-    const addTask = () => {
-        const newTaskName: string | undefined = inputRef.current?.value;
+    function addTask(newTaskName: string) {
+        /**
+         * Adds new task
+         *
+         * @param newTaskName - name of task to add
+         */
         if (newTaskName) {
             setTasks([
                 ...tasks,
@@ -54,14 +86,21 @@ function App(props: AppProps) {
                 },
             ]);
         }
-    };
+    }
 
     return (
         <main>
             <h1>Do It Now!</h1>
             <div id="todo-input">
                 <input id="todo-input-text" ref={inputRef} />
-                <button id="todo-input-button" type="button" onClick={addTask}>
+                <button
+                    id="todo-input-button"
+                    type="button"
+                    onClick={() => {
+                        addTask(inputRef.current!.value);
+                        inputRef.current!.value = "";
+                    }}
+                >
                     +
                 </button>
             </div>
@@ -95,7 +134,7 @@ function App(props: AppProps) {
                 </button>
             </div>
 
-            {getTasks(tasks)}
+            {getTasks(tasks, currentFilter)}
         </main>
     );
 }
